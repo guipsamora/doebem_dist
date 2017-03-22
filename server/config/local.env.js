@@ -18,9 +18,14 @@ module.exports = {
   GOOGLE_ID: 'app-id',
   GOOGLE_SECRET: 'secret',
 
+  GMAIL_USER: 'contato@doebem.org.br',
+  GMAIL_SECRET: 'elisamansur',
+
   aws_access_key_id: 'AKIAJLEVE2AMATK2W6OA',
   aws_secret_access_key: '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',
 
+  MerchantId: '65762591-82a8-4194-b64c-0e506e7a0eaa',
+  MerchantKey: 'ZHGRIUQBYITBCCVQMTHIPHXPZEIEVGOJFZUAVVSJ',
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''
 };

@@ -11,10 +11,10 @@ var _mongoose2 = _interopRequireDefault(_mongoose);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var contactFormSchema = new _mongoose2.default.Schema({
-  fistName: String,
-  lastName: String,
-  email: String,
-  message: String,
+  Name: String,
+  Telefone: String,
+  Email: String,
+  Mensagem: String,
   date: { type: Date, default: Date.now }
 });
 

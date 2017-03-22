@@ -35,8 +35,8 @@ var _moment2 = _interopRequireDefault(_moment);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _awsSdk2.default.config.update({
-  accessKeyId: process.env.aws_access_key_id,
-  secretAccessKey: process.env.aws_secret_access_key,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: 'us-east-1'
 });
 var s3 = new _awsSdk2.default.S3();
@@ -69,13 +69,13 @@ exports.signing = function (req, res) {
   var base64Policy = new Buffer(stringPolicy, 'utf-8').toString('base64');
 
   // sign policy
-  var signature = _crypto2.default.createHmac('sha1', process.env.aws_secret_access_key).update(new Buffer(base64Policy, 'utf-8')).digest('base64');
+  var signature = _crypto2.default.createHmac('sha1', process.env.AWS_SECRET_ACCESS_KEY).update(new Buffer(base64Policy, 'utf-8')).digest('base64');
 
   var credentials = {
     url: s3Url,
     fields: {
       key: path,
-      AWSAccessKeyId: process.env.aws_access_key_id,
+      AWSAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
       acl: readType,
       policy: base64Policy,
       signature: signature,

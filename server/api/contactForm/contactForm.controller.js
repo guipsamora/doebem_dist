@@ -27,43 +27,45 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
+// console.log("eu funcionei");
+
 _expressMailer2.default.extend(app, {
-  from: 'Jean Philip de Rogatis <jrogatis@gmail.com>',
+  from: 'doebembr@gmail.com',
   host: 'smtp.gmail.com', // hostname
   secureConnection: true, // use SSL
   port: 465, // port for secure SMTP
   transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_SECRET
+    user: process.env.GOOGLE_ID,
+    pass: process.env.GOOGLE_SECRET
   }
 });
 
 app.set('views', __dirname + '/'); //path.resolve( __dirname, '/'));
 app.set('view engine', 'pug');
 
-function handleSendEmail(res) {
-  console.log('path', __dirname);
+function handleSendEmail(req, res) {
   app.mailer.send({
     template: 'email',
-    bcc: 'jrogatis@metaconexao.com.br'
+    bcc: 'doebembr@gmail.com'
   }, {
-    to: res.email,
+    to: req.body.Email,
     subject: 'Sua mensagem para a doebem', // REQUIRED.
-    message: res.message
+    message: req.body.Mensagem
   }, function (err) {
     if (err) {
       // handle error
       console.log(err);
-      res.send('There was an error sending the email');
+
+      res.send('Ocorreu um erro ao enviar sua mensagem');
       return;
     }
-    res.send('Email Sent');
+    res.send('Email enviado');
   });
 }
 
 // Creates a new ContactForm in the DB
 function create(req, res) {
-  return _contactForm2.default.create(req.body).then(handleSendEmail(res));
+  return _contactForm2.default.create(req.body).then(handleSendEmail(req, res));
 }
 //# sourceMappingURL=contactForm.controller.js.map

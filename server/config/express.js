@@ -65,51 +65,49 @@ exports.default = function (app) {
   }
 
   if (env === 'development') {
-    (function () {
-      var webpackDevMiddleware = require('webpack-dev-middleware');
-      var stripAnsi = require('strip-ansi');
-      var webpack = require('webpack');
-      var makeWebpackConfig = require('../../webpack.make');
-      var webpackConfig = makeWebpackConfig({ DEV: true });
-      var compiler = webpack(webpackConfig);
-      var browserSync = require('browser-sync').create();
+    var webpackDevMiddleware = require('webpack-dev-middleware');
+    var stripAnsi = require('strip-ansi');
+    var webpack = require('webpack');
+    var makeWebpackConfig = require('../../webpack.make');
+    var webpackConfig = makeWebpackConfig({ DEV: true });
+    var compiler = webpack(webpackConfig);
+    var browserSync = require('browser-sync').create();
 
-      /**
-       * Run Browsersync and use middleware for Hot Module Replacement
-       */
-      browserSync.init({
-        open: false,
-        logFileChanges: false,
-        proxy: 'localhost:' + _environment2.default.port,
-        ws: true,
-        middleware: [webpackDevMiddleware(compiler, {
-          noInfo: false,
-          stats: {
-            colors: true,
-            timings: true,
-            chunks: false
-          }
-        })],
-        port: _environment2.default.browserSyncPort,
-        plugins: ['bs-fullscreen-message']
-      });
-
-      /**
-       * Reload all devices when bundle is complete
-       * or send a fullscreen error message to the browser instead
-       */
-      compiler.plugin('done', function (stats) {
-        console.log('webpack done hook');
-        if (stats.hasErrors() || stats.hasWarnings()) {
-          return browserSync.sockets.emit('fullscreen:message', {
-            title: 'Webpack Error:',
-            body: stripAnsi(stats.toString()),
-            timeout: 100000
-          });
+    /**
+     * Run Browsersync and use middleware for Hot Module Replacement
+     */
+    browserSync.init({
+      open: false,
+      logFileChanges: false,
+      proxy: 'localhost:' + _environment2.default.port,
+      ws: true,
+      middleware: [webpackDevMiddleware(compiler, {
+        noInfo: false,
+        stats: {
+          colors: true,
+          timings: true,
+          chunks: false
         }
-        browserSync.reload();
-      });
-    })();
+      })],
+      port: _environment2.default.browserSyncPort,
+      plugins: ['bs-fullscreen-message']
+    });
+
+    /**
+     * Reload all devices when bundle is complete
+     * or send a fullscreen error message to the browser instead
+     */
+    compiler.plugin('done', function (stats) {
+      console.log('webpack done hook');
+      if (stats.hasErrors() || stats.hasWarnings()) {
+        return browserSync.sockets.emit('fullscreen:message', {
+          title: 'Webpack Error:',
+          body: stripAnsi(stats.toString()),
+          timeout: 100000
+        });
+      }
+      browserSync.reload();
+    });
   }
 
   if (env === 'development' || env === 'test') {

@@ -89,11 +89,20 @@ function index(req, res) {
   return _ong2.default.find().exec().then(respondWithResult(res)).catch(handleError(res));
 }
 
-// Gets a single Omg from the DB from id or from slug...
+// Gets a single Ong from the DB from id or from slug...
 function show(req, res) {
-  return _ong2.default.findById(req.params.id).exec().then(handleEntityNotFound(res)).then(respondWithResult(res)).catch(function (err) {
-    _ong2.default.findOne({ slug: req.params.id }).exec().then(handleEntityNotFound(res)).then(respondWithResult(res)).catch(handleError(res));
+  return _ong2.default.findOne({ slug: req.params.id }).exec().then(handleEntityNotFound(res)).then(respondWithResult(res)).catch(function (err) {
+    handleError(err);
   });
+  // return Ong.findById(req.params.id).exec()
+  //   .then(handleEntityNotFound(res))
+  //   .then(respondWithResult(res))
+  //   .catch(err => {
+  //     Ong.findOne({slug: req.params.id}).exec()
+  //     .then(handleEntityNotFound(res))
+  //     .then(respondWithResult(res))
+  //     .catch(handleError(err));
+  //   });
 }
 
 // Creates a new Ong in the DB
