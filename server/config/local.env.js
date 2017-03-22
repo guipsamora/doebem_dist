@@ -19,7 +19,7 @@ module.exports = {
   GOOGLE_SECRET: 'secret',
 
   GMAIL_USER: 'contato@doebem.org.br',
-  GMAIL_SECRET: 'elisamansur',
+  GMAIL_SECRET: 'Doebem!@#',
 
   aws_access_key_id: 'AKIAJLEVE2AMATK2W6OA',
   aws_secret_access_key: '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',
