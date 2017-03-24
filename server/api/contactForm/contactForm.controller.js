@@ -30,7 +30,7 @@ var app = (0, _express2.default)();
 // console.log("eu funcionei");
 
 _expressMailer2.default.extend(app, {
-  from: 'doebembr@gmail.com',
+  from: 'contato@doebem.org.br',
   host: 'smtp.gmail.com', // hostname
   secureConnection: true, // use SSL
   port: 465, // port for secure SMTP
@@ -47,7 +47,7 @@ app.set('view engine', 'pug');
 function handleSendEmail(req, res) {
   app.mailer.send({
     template: 'email',
-    bcc: 'doebembr@gmail.com'
+    bcc: 'contato@doebem.org.br'
   }, {
     to: req.body.Email,
     subject: 'Sua mensagem para a doebem', // REQUIRED.
