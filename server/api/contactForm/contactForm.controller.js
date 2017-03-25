@@ -27,8 +27,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
-// console.log("eu funcionei");
-
 _expressMailer2.default.extend(app, {
   from: 'contato@doebem.org.br',
   host: 'smtp.gmail.com', // hostname
