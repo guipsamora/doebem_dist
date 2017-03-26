@@ -34,8 +34,8 @@ _expressMailer2.default.extend(app, {
   port: 465, // port for secure SMTP
   transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
   auth: {
-    user: process.env.GOOGLE_ID,
-    pass: process.env.GOOGLE_SECRET
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_SECRET
   }
 });
 
@@ -64,6 +64,7 @@ function handleSendEmail(req, res) {
 
 // Creates a new ContactForm in the DB
 function create(req, res) {
+  console.log(req.body);
   return _contactForm2.default.create(req.body).then(handleSendEmail(req, res));
 }
 //# sourceMappingURL=contactForm.controller.js.map
